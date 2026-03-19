@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>席替えアプリ</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Classroom Seat Shuffle</p>
+          <h1>席替えアプリ</h1>
+          <p class="hero-text">
+            クラス名簿を入力して、使わない席を除外しながらランダムに席替えできます。
+            気に入った席は固定して、固定席以外だけを再抽選することもできます。
+          </p>
+          <div class="hero-actions">
+            <button id="shuffleAllBtn" class="primary-button" type="button">
+              全員を抽選
+            </button>
+            <button id="shuffleUnlockedBtn" class="secondary-button" type="button">
+              固定席を残して再抽選
+            </button>
+            <button id="clearBtn" class="ghost-button" type="button">
+              配置をクリア
+            </button>
+          </div>
+        </div>
+        <div class="hero-metrics">
+          <article class="metric-card accent-sun">
+            <span class="metric-label">生徒数</span>
+            <strong id="studentCount">0</strong>
+          </article>
+          <article class="metric-card accent-sky">
+            <span class="metric-label">使用可能な席</span>
+            <strong id="usableSeatCount">0</strong>
+          </article>
+          <article class="metric-card accent-ink">
+            <span class="metric-label">空席</span>
+            <strong id="emptySeatCount">0</strong>
+          </article>
+          <article class="metric-card accent-mint">
+            <span class="metric-label">固定席</span>
+            <strong id="lockedSeatCount">0</strong>
+          </article>
+        </div>
+      </header>
+
+      <main class="main-grid">
+        <section class="panel controls-panel">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Setup</p>
+              <h2>設定</h2>
+            </div>
+            <button id="sampleBtn" class="ghost-button" type="button">
+              サンプル名簿
+            </button>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>行数</span>
+              <input id="rowsInput" type="number" min="1" max="10" value="5" />
+            </label>
+            <label class="field">
+              <span>列数</span>
+              <input id="colsInput" type="number" min="1" max="10" value="6" />
+            </label>
+          </div>
+
+          <div class="control-row">
+            <button id="applyLayoutBtn" class="secondary-button" type="button">
+              座席数を更新
+            </button>
+            <button id="editLayoutBtn" class="ghost-button" type="button" aria-pressed="false">
+              使わない席を編集
+            </button>
+          </div>
+
+          <label class="field textarea-field">
+            <span>名簿</span>
+            <textarea
+              id="studentInput"
+              rows="14"
+              placeholder="1行に1人ずつ入力&#10;例：&#10;青木 真央&#10;石田 陸&#10;上田 未来"
+            ></textarea>
+          </label>
+
+          <div id="messageBox" class="message-box" role="status" aria-live="polite">
+            名簿を入力して「全員を抽選」を押すと席替えできます。
+          </div>
+        </section>
+
+        <section class="panel board-panel">
+          <div class="section-heading board-heading">
+            <div>
+              <p class="section-kicker">Seat Board</p>
+              <h2>座席表</h2>
+            </div>
+            <div class="board-actions">
+              <button id="printBtn" class="ghost-button" type="button">
+                印刷
+              </button>
+            </div>
+          </div>
+
+          <div class="board-frame">
+            <div class="board-front">前方 / 黒板</div>
+            <div id="seatGrid" class="seat-grid" aria-label="座席表"></div>
+          </div>
+
+          <div class="legend">
+            <span><i class="legend-chip available"></i>利用可能</span>
+            <span><i class="legend-chip occupied"></i>割り当て済み</span>
+            <span><i class="legend-chip locked"></i>固定席</span>
+            <span><i class="legend-chip unavailable"></i>使わない席</span>
+          </div>
+
+          <div class="board-note">
+            固定されていない席はドラッグして入れ替えできます。編集モードでは席をクリックして使わない席を切り替えます。
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
